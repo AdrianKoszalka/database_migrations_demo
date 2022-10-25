@@ -1,0 +1,16 @@
+version: "3.9"
+
+volumes:
+  postgres-extractors-data:
+    external: false
+
+services:
+  extractors-db:
+    env_file: scripts/.env
+    container_name: DataExtractors-DB
+    image: postgres:15.0
+    ports:
+      - 5656:5432
+    restart: unless-stopped
+    volumes:
+      - postgres-extractors-data:/var/lib/postgresql/data
