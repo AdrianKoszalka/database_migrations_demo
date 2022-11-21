@@ -194,7 +194,6 @@ BEGIN
         video_reply->''''snippet''''->>''''authorProfileImageUrl'''' AS author_profile_image_url
       FROM video_replies;
 
-      COMMIT;
     END; $$;
   '';
 END ';
