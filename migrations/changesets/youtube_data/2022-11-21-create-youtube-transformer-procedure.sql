@@ -11,9 +11,9 @@ BEGIN
 
       WITH channels AS (
       SELECT jsonb_array_elements("raw_data"->''''items'''') AS channel
-        FROM raw_youtube_channels
+        FROM youtube_data.raw_youtube_channels
       )
-      INSERT INTO youtube_channels (
+      INSERT INTO youtube_data.youtube_channels (
         "channel_id",
         "etag",
         "type",
@@ -44,9 +44,9 @@ BEGIN
 
       WITH videos AS (
       SELECT jsonb_array_elements("raw_data"->''''items'''') AS video
-        FROM raw_youtube_videos
+        FROM youtube_data.raw_youtube_videos
       )
-      INSERT INTO youtube_videos (
+      INSERT INTO youtube_data.youtube_videos (
         "video_id",
         "etag",
         "type",
@@ -111,9 +111,9 @@ BEGIN
 
       WITH video_comments AS (
       SELECT jsonb_array_elements("raw_data"->''''items'''')  AS video_comment
-        FROM raw_youtube_video_comments
+        FROM youtube_data.raw_youtube_video_comments
       )
-      INSERT INTO youtube_comments (
+      INSERT INTO youtube_data.youtube_comments (
         "comment_id",
         "video_id",
         "can_reply",
@@ -154,14 +154,14 @@ BEGIN
 
       WITH video_comments AS (
       SELECT jsonb_array_elements("raw_data"->''''items'''')  AS video_comment
-        FROM raw_youtube_video_comments
+        FROM youtube_data.raw_youtube_video_comments
       ), video_replies AS (
       SELECT
         jsonb_array_elements(video_comment->''''replies''''->''''comments'''') AS video_reply
       FROM video_comments
       WHERE video_comment->>''''replies'''' IS NOT NULL
       )
-      INSERT INTO youtube_comment_replies (
+      INSERT INTO youtube_data.youtube_comment_replies (
         "reply_id",
         "video_id",
         "parent_id",
